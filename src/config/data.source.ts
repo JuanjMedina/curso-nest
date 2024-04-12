@@ -2,9 +2,16 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
-ConfigModule.forRoot({
-  envFilePath: `.${process.env.NODE_ENV.trim()}.env`,
-});
+if (process.env.NODE_ENV === 'development') {
+  ConfigModule.forRoot({
+    envFilePath: `.${process.env.NODE_ENV.trim()}.env`,
+  });
+} else {
+  ConfigModule.forRoot({
+    envFilePath: `.env`,
+    isGlobal: true,
+  });
+}
 
 const configService = new ConfigService();
 
@@ -18,11 +25,9 @@ export const DataSourceConfig: DataSourceOptions = {
   entities: [__dirname + '/../**/**/*.entity{.ts,.js}'],
   migrations: [__dirname + '/../migrations/*{ .ts,.js}'],
   synchronize: true,
-  ssl:true,
+  ssl: true,
   logging: false,
   namingStrategy: new SnakeNamingStrategy(),
 };
-
-
 
 export const AppDs = new DataSource(DataSourceConfig);
