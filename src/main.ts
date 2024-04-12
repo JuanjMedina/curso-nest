@@ -28,10 +28,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
-  console.log('Estamos en el ambiente de ', process.env.NODE_ENV)
-
+  
   const configService = app.get(ConfigService);
   await app.listen(configService.get('PORT'));
+  console.log('Estamos en el ambiente de ', process.env.NODE_ENV)
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
