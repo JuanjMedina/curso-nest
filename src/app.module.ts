@@ -6,14 +6,19 @@ import { DataSourceConfig } from './config/data.source';
 import { ProjectsModule } from './projects/projects.module';
 import { AuthModule } from './auth/auth.module';
 import { TasksModule } from './tasks/tasks.module';
-import {DevtoolsModule    } from '@nestjs/devtools-integration'
+import { DevtoolsModule } from '@nestjs/devtools-integration';
 import { ProvidersModule } from './providers/providers.module';
 
-
+let path = ''  
+if (process.env.NODE_ENV === 'development') {
+  path= `.${process.env.NODE_ENV.trim()}.env`;
+}else{
+  path = '.env'
+}
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: `.${process.env.NODE_ENV.trim()}.env`,
+      envFilePath: path,
       isGlobal: true,
     }),
     TypeOrmModule.forRoot({ ...DataSourceConfig }),
