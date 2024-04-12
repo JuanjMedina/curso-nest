@@ -17,7 +17,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({}));
   const reflector = app.get(Reflector);
   app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));
-
+  console.log('process.env.NODE_ENV', process.env.NODE_ENV)
   const config = new DocumentBuilder()
     .setTitle('TASK Api')
     .setDescription('Aplicacion de tareas ')

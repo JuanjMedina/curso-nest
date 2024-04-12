@@ -16,11 +16,13 @@ export const DataSourceConfig: DataSourceOptions = {
   password: configService.get('DB_PASSWORD'),
   database: configService.get('DB_NAME'),
   entities: [__dirname + '/../**/**/*.entity{.ts,.js}'],
-  migrations: [__dirname + '/../migrations/*{.ts,.js}'],
+  migrations: [__dirname + '/../migrations/*{ .ts,.js}'],
   synchronize: true,
-  migrationsRun: true,
+  ssl:true,
   logging: false,
   namingStrategy: new SnakeNamingStrategy(),
 };
+
+
 
 export const AppDs = new DataSource(DataSourceConfig);
